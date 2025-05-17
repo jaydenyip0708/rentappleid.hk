@@ -2,106 +2,138 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apple Gift Card 購買中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apple Gift Card 購買頁面</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f5f5f7;
-      margin: 0;
-      padding: 0;
-      color: #1d1d1f;
+      font-family: "Segoe UI", sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+      color: #333;
     }
-    header {
-      background-color: #000;
-      color: white;
-      padding: 20px 0;
+    h1 {
       text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-      letter-spacing: 1px;
-    }
-    .container {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 30px;
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      color: #222;
     }
     form {
-      display: flex;
-      flex-direction: column;
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     label {
-      margin-top: 20px;
+      display: block;
+      margin-top: 15px;
       font-weight: bold;
     }
-    input, select, textarea {
+    input, select {
+      width: 100%;
       padding: 10px;
       margin-top: 5px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
     }
-    textarea {
-      resize: vertical;
+    .product {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .product input[type="number"] {
+      width: 60px;
+    }
+    .total {
+      font-size: 18px;
+      margin-top: 20px;
+      text-align: right;
+      font-weight: bold;
     }
     button {
-      margin-top: 30px;
-      background-color: #0071e3;
+      margin-top: 20px;
+      background-color: #007aff;
       color: white;
       padding: 12px;
-      font-size: 16px;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #005bb5;
-    }
-    footer {
-      text-align: center;
-      font-size: 14px;
-      padding: 20px;
-      color: #aaa;
+      background-color: #0051c1;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Apple Gift Card 購買中心</h1>
-  </header>
-  <div class="container">
-    <form action="https://formspree.io/f/manoavdp" method="POST">
-      <label for="name">姓名 / 暱稱：</label>
-      <input type="text" name="name" id="name" required>
+  <h1>購買 Apple Gift Card</h1>
+  <form action="https://formspree.io/f/manoavdp" method="POST">
+    <label for="name">名稱：</label>
+    <input type="text" id="name" name="name" placeholder="請輸入您的姓名" required>
 
-      <label for="phone">聯絡電話：</label>
-      <input type="text" name="phone" id="phone" required>
+    <label for="contact-method">聯絡方式：</label>
+    <select id="contact-method" name="contact_method" required>
+      <option value="WhatsApp" selected>WhatsApp</option>
+      <option value="WeChat">WeChat</option>
+      <option value="Line">Line</option>
+      <option value="Signal">Signal</option>
+    </select>
 
-      <label for="product">選擇購買金額：</label>
-      <select name="product" id="product" required>
-        <option value="" disabled selected>請選擇一項</option>
-        <option value="Apple Gift Card $2">Apple Gift Card $2</option>
-        <option value="Apple Gift Card $5">Apple Gift Card $5</option>
-        <option value="Apple Gift Card $10">Apple Gift Card $10</option>
+    <label id="phone-label" for="phone">聯絡電話（WhatsApp）：</label>
+    <div style="display: flex; gap: 5px;">
+      <select id="country-code" name="country_code" required>
+        <option value="853">853（澳門）</option>
+        <option value="852">852（香港）</option>
+        <option value="86">86（中國）</option>
+        <option value="886">886（台灣）</option>
       </select>
+      <input type="tel" id="phone" name="phone" placeholder="請輸入電話號碼" required>
+    </div>
 
-      <label for="note">其他備註（可選）：</label>
-      <textarea name="note" id="note" rows="3" placeholder="例如：請即時聯絡、付款方式..."></textarea>
+    <label>選擇產品：</label>
+    <div class="product">
+      <span>Apple Gift Card $2（MOP $20）</span>
+      <input type="number" name="product_2" value="0" min="0" data-price="20">
+    </div>
 
-      <button type="submit">提交訂單</button>
-    </form>
-  </div>
-  <footer>
-    本服務由 Jayden Yip 提供 | 非 Apple 官方網站
-  </footer>
+    <div class="product">
+      <span>Apple Gift Card $5（MOP $50）</span>
+      <input type="number" name="product_5" value="0" min="0" data-price="50">
+    </div>
+
+    <div class="product">
+      <span>Apple Gift Card $10（MOP $100）</span>
+      <input type="number" name="product_10" value="0" min="0" data-price="100">
+    </div>
+
+    <div class="total" id="total">總價：MOP $0</div>
+
+    <button type="submit">送出</button>
+  </form>
+
+  <script>
+    const methodSelect = document.getElementById("contact-method");
+    const phoneLabel = document.getElementById("phone-label");
+    const inputs = document.querySelectorAll('input[type="number"]');
+    const totalDisplay = document.getElementById("total");
+
+    methodSelect.addEventListener("change", () => {
+      const method = methodSelect.value;
+      phoneLabel.textContent = `聯絡電話（${method}）：`;
+    });
+
+    function updateTotal() {
+      let total = 0;
+      inputs.forEach(input => {
+        const qty = parseInt(input.value) || 0;
+        const price = parseFloat(input.dataset.price);
+        total += qty * price;
+      });
+      totalDisplay.textContent = `總價：MOP $${total}`;
+    }
+
+    inputs.forEach(input => input.addEventListener('input', updateTotal));
+  </script>
 </body>
 </html>
