@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>苹果ID账户信息 - 密码访问</title>
+    <title>苹果ID账户信息 - 安全访问</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-family: "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
             color: #333;
             line-height: 1.6;
             padding: 20px;
@@ -25,11 +26,11 @@
         
         .container {
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            padding: 35px;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             margin: 20px auto;
             transition: all 0.3s ease;
         }
@@ -37,20 +38,29 @@
         header {
             text-align: center;
             padding: 15px 0 25px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f0f0f0;
             margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .apple-logo {
+            font-size: 28px;
+            color: #000;
+            margin-bottom: 15px;
         }
         
         h1 {
-            font-size: 24px;
+            font-size: 26px;
             color: #333;
             margin-bottom: 10px;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
         
         .subtitle {
             color: #666;
             font-size: 16px;
+            font-weight: 400;
         }
         
         .password-form {
@@ -59,62 +69,103 @@
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
+            position: relative;
         }
         
         label {
             display: block;
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 8px;
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 10px;
             font-weight: 500;
+        }
+        
+        .password-input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
         
         input[type="password"] {
             width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            padding: 16px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
             font-size: 16px;
-            transition: border 0.3s;
+            transition: all 0.3s;
+            padding-right: 50px;
         }
         
         input[type="password"]:focus {
-            border-color: #3871ff;
+            border-color: #007AFF;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(56, 113, 255, 0.2);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15);
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 18px;
         }
         
         .error-message {
-            color: #ff4d4f;
+            color: #FF3B30;
             font-size: 14px;
             margin-top: 10px;
             display: none;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .attempts-warning {
+            color: #FF9500;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background: #FFF4E5;
+            padding: 12px 15px;
+            border-radius: 10px;
         }
         
         .btn {
             display: block;
             width: 100%;
-            padding: 16px;
-            background: #ff4d4f;
+            padding: 18px;
+            background: #007AFF;
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
         }
         
         .btn:hover {
-            background: #ff7875;
+            background: #0062CC;
+            box-shadow: 0 6px 16px rgba(0, 122, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
         }
         
         .btn:disabled {
-            background: #ccc;
+            background: #CECED2;
+            box-shadow: none;
             cursor: not-allowed;
+            transform: none;
         }
         
         .account-info {
@@ -123,91 +174,103 @@
         }
         
         .notice {
-            background: #f2f7ff;
-            border-left: 4px solid #3871ff;
-            padding: 15px;
+            background: #F2F7FF;
+            border-left: 4px solid #007AFF;
+            padding: 18px;
             margin: 20px 0;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 15px;
             line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .notice i {
+            color: #007AFF;
+            font-size: 20px;
+            margin-top: 2px;
         }
         
         .info-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .info-value {
             font-size: 18px;
             font-weight: 500;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            border: 1px solid #eee;
+            padding: 16px;
+            background: #F9F9F9;
+            border-radius: 12px;
+            border: 1px solid #EEE;
             word-break: break-all;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s;
         }
         
-        .password-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .password-field {
-            flex: 1;
+        .info-value:hover {
+            background: #F0F4FF;
         }
         
         .copy-icon {
-            background: #4caf50;
+            background: #34C759;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 16px;
             border-radius: 8px;
             cursor: pointer;
             margin-left: 10px;
             font-size: 14px;
+            font-weight: 500;
             transition: all 0.3s;
             min-width: 70px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .copy-icon:hover {
-            background: #3d8b40;
+            background: #2CAE4E;
+            transform: translateY(-2px);
         }
         
-        .attempts-warning {
-            color: #ff4d4f;
+        .copy-icon:active {
+            transform: translateY(0);
+        }
+        
+        .warning {
+            color: #FF3B30;
             font-size: 14px;
-            margin-top: 15px;
-            display: none;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         
         .warning-section {
-            background: #fff2f2;
-            border: 1px solid #ffcccc;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
-            color: #cc0000;
+            background: #FFF2F2;
+            border: 1px solid #FFD1D1;
+            border-radius: 12px;
+            padding: 22px;
+            margin: 30px 0;
+            color: #D70000;
         }
         
         .warning-section h3 {
-            color: #cc0000;
+            color: #D70000;
             margin-bottom: 15px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
             display: flex;
             align-items: center;
-        }
-        
-        .warning-section h3::before {
-            content: "⚠️";
-            margin-right: 10px;
+            gap: 10px;
         }
         
         .warning-content {
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
         }
         
@@ -216,121 +279,137 @@
         }
         
         .highlight-red {
-            color: #cc0000;
+            color: #D70000;
             font-weight: 600;
         }
         
         .copy-all-btn {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
             width: 100%;
-            padding: 16px;
-            background: #3871ff;
+            padding: 18px;
+            background: #5856D6;
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s;
-            text-align: center;
+            margin-top: 25px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(88, 86, 214, 0.25);
         }
         
         .copy-all-btn:hover {
-            background: #5c8aff;
+            background: #4846B6;
+            box-shadow: 0 6px 16px rgba(88, 86, 214, 0.3);
+            transform: translateY(-2px);
         }
         
         .instructions {
-            background: #fff8e6;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
-            border: 1px solid #ffeeba;
+            background: #FFF8E6;
+            border-radius: 12px;
+            padding: 22px;
+            margin: 30px 0;
+            border: 1px solid #FFE9A7;
         }
         
         .instructions h3 {
-            color: #856404;
+            color: #8E6C04;
             margin-bottom: 15px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .instructions ol {
-            padding-left: 20px;
-            font-size: 14px;
+            padding-left: 22px;
+            font-size: 15px;
         }
         
         .instructions li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             line-height: 1.5;
-        }
-        
-        .warning {
-            color: #ff4d4f;
-            font-size: 13px;
-            margin-top: 8px;
-            display: block;
         }
         
         .footer {
             text-align: center;
-            margin-top: 30px;
-            color: #999;
-            font-size: 13px;
+            margin-top: 35px;
+            color: #888;
+            font-size: 14px;
             line-height: 1.5;
         }
         
         .tutorial-section {
-            margin: 25px 0;
+            margin: 30px 0;
             text-align: center;
         }
         
         .tutorial-section h3 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
+            margin-bottom: 18px;
+            font-size: 19px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .tutorial-image {
             max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 18px 0;
+            border: 1px solid #EEE;
         }
         
         .contact-section {
-            background: #f0f7ff;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
+            background: #F0F7FF;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
             text-align: center;
         }
         
         .contact-section h3 {
-            color: #3871ff;
-            margin-bottom: 15px;
-            font-size: 18px;
+            color: #007AFF;
+            margin-bottom: 18px;
+            font-size: 19px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .contact-info {
             font-size: 16px;
             margin: 15px 0;
             line-height: 1.6;
+            background: #FFFFFF;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
         }
         
         .qr-code {
             max-width: 200px;
-            margin: 15px auto;
+            margin: 18px auto;
             display: block;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #DDD;
         }
         
         @media (max-width: 500px) {
             .container {
-                padding: 20px;
+                padding: 25px 20px;
+                border-radius: 16px;
             }
             
             h1 {
@@ -339,13 +418,19 @@
             
             .info-value {
                 font-size: 16px;
-                padding: 12px;
+                padding: 14px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
             }
             
             .copy-icon {
-                padding: 8px 12px;
-                font-size: 13px;
-                min-width: 60px;
+                align-self: flex-end;
+                margin-left: 0;
+            }
+            
+            .btn, .copy-all-btn {
+                padding: 16px;
             }
         }
     </style>
@@ -353,23 +438,41 @@
 <body>
     <div class="container">
         <header>
+            <div class="apple-logo">
+                <i class="fa-brands fa-apple"></i>
+            </div>
             <h1>苹果ID账户信息</h1>
-            <p class="subtitle">请输入访问密码查看账户详情</p>
+            <p class="subtitle">请输入访问密码查看您的账户详情</p>
         </header>
         
         <div class="password-form" id="passwordForm">
             <div class="form-group">
                 <label for="accessPassword">访问密码：</label>
-                <input type="password" id="accessPassword" placeholder="请输入访问密码" autocomplete="off">
-                <div class="error-message" id="passwordError">密码错误，请重新输入</div>
-                <div class="attempts-warning" id="attemptsWarning">剩余尝试次数: <span id="attemptsLeft">3</span></div>
+                <div class="password-input-container">
+                    <input type="password" id="accessPassword" placeholder="请输入访问密码" autocomplete="off">
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+                <div class="error-message" id="passwordError">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>密码错误，请重新输入</span>
+                </div>
+                <div class="attempts-warning" id="attemptsWarning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>剩余尝试次数: <span id="attemptsLeft">3</span></span>
+                </div>
             </div>
             
-            <button class="btn" id="submitBtn">查看账户信息</button>
+            <button class="btn" id="submitBtn">
+                <i class="fas fa-lock-open"></i>
+                查看账户信息
+            </button>
         </div>
         
         <div class="account-info" id="accountInfo">
             <div class="notice">
+                <i class="fas fa-info-circle"></i>
                 <p>您的账户信息如下，请仔细阅读使用说明。账户仅限当前设备使用。</p>
             </div>
             
@@ -377,7 +480,10 @@
                 <label>苹果ID：</label>
                 <div class="info-value">
                     <span id="appleId">hhk05561gnbrm@icloud.com</span>
-                    <button class="copy-icon" onclick="copyText('appleId')">复制</button>
+                    <button class="copy-icon" onclick="copyText('appleId')">
+                        <i class="far fa-copy"></i>
+                        复制
+                    </button>
                 </div>
             </div>
             
@@ -385,21 +491,36 @@
                 <label>账户密码：</label>
                 <div class="info-value">
                     <span id="password">Hk553724</span>
-                    <button class="copy-icon" onclick="copyText('password')">复制</button>
+                    <button class="copy-icon" onclick="copyText('password')">
+                        <i class="far fa-copy"></i>
+                        复制
+                    </button>
                 </div>
-                <span class="warning">请勿修改此账户的任何设置或密码</span>
+                <span class="warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    请勿修改此账户的任何设置或密码
+                </span>
             </div>
             
-            <button class="copy-all-btn" onclick="copyAllInfo()">复制全部账户信息</button>
+            <button class="copy-all-btn" onclick="copyAllInfo()">
+                <i class="fas fa-copy"></i>
+                复制全部账户信息
+            </button>
             
             <div class="tutorial-section">
-                <h3>商店登录 - 教程</h3>
+                <h3>
+                    <i class="fas fa-graduation-cap"></i>
+                    商店登录 - 教程
+                </h3>
                 <img src="https://raw.githubusercontent.com/jaydenyip0708/applegiftcard.mo/main/appstore.appleid.png" alt="App Store登录教程" class="tutorial-image">
                 <p>按照上图所示步骤登录App Store</p>
             </div>
             
             <div class="warning-section">
-                <h3>重要警告</h3>
+                <h3>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    重要警告
+                </h3>
                 <div class="warning-content">
                     <p>⚠️虚拟商品具有可复制性，不支持以麻烦/不会操作/看不懂/不想要了/我没看清拍错了等个人原因申请退款，有问题可以联系客服解决，因个人原因申请退款的，一律拒绝！</p>
                     <p>📌<span class="highlight-red">警告：本店对于白嫖者零容忍，如果拿了我们的东西来仅退款，我们将会标记为平台恶意买家，并且采取相应措施，后果自负！（仅针对于仅退款者）</span></p>
@@ -407,14 +528,20 @@
             </div>
             
             <div class="contact-section">
-                <h3>售后联系</h3>
+                <h3>
+                    <i class="fas fa-headset"></i>
+                    售后联系
+                </h3>
                 <p class="contact-info">售后V：wxid_svjrzgfvw1mf12（不要在平台提及相关字眼）</p>
                 <img src="https://raw.githubusercontent.com/jaydenyip0708/applegiftcard.mo/main/wechatqrcode.png" alt="微信二维码" class="qr-code">
                 <p class="contact-info">如有需要购买独享Apple ID 帐号，可以跟我联繫</p>
             </div>
             
             <div class="instructions">
-                <h3>使用说明：</h3>
+                <h3>
+                    <i class="fas fa-list-alt"></i>
+                    使用说明：
+                </h3>
                 <ol>
                     <li>使用上方提供的账户信息登录App Store或iTunes</li>
                     <li>此账户<span class="highlight-red">仅限下载应用</span>，请勿用于其他用途</li>
@@ -428,6 +555,7 @@
         
         <div class="footer">
             <p>请妥善保管您的账户信息，勿泄露给他人</p>
+            <p>© 2023 Apple ID账户服务</p>
         </div>
     </div>
 
@@ -449,8 +577,8 @@
             } else {
                 // 密码错误
                 attempts--;
-                passwordError.style.display = 'block';
-                attemptsWarning.style.display = 'block';
+                passwordError.style.display = 'flex';
+                attemptsWarning.style.display = 'flex';
                 attemptsLeft.textContent = attempts;
                 
                 if (attempts <= 0) {
@@ -465,11 +593,27 @@
             }
         });
         
+        // 切换密码可见性
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('accessPassword');
+            const eyeIcon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+        
         // 复制文本功能
         function copyText(elementId) {
             const text = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(text).then(() => {
-                alert('已复制到剪贴板！');
+                showNotification('已复制到剪贴板！');
             }).catch(err => {
                 console.error('无法复制文本: ', err);
                 // 备用复制方法
@@ -479,9 +623,9 @@
                 textArea.select();
                 try {
                     document.execCommand('copy');
-                    alert('已复制到剪贴板！');
+                    showNotification('已复制到剪贴板！');
                 } catch (err) {
-                    alert('复制失败，请手动复制');
+                    showNotification('复制失败，请手动复制', true);
                 }
                 document.body.removeChild(textArea);
             });
@@ -495,7 +639,7 @@
             const textToCopy = `苹果ID: ${appleId}\n密码: ${password}`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
-                alert('账户信息已复制到剪贴板！');
+                showNotification('账户信息已复制到剪贴板！');
             }).catch(err => {
                 console.error('无法复制文本: ', err);
                 // 备用复制方法
@@ -505,12 +649,48 @@
                 textArea.select();
                 try {
                     document.execCommand('copy');
-                    alert('账户信息已复制到剪贴板！');
+                    showNotification('账户信息已复制到剪贴板！');
                 } catch (err) {
-                    alert('复制失败，请手动复制');
+                    showNotification('复制失败，请手动复制', true);
                 }
                 document.body.removeChild(textArea);
             });
+        }
+        
+        // 显示通知
+        function showNotification(message, isError = false) {
+            // 移除现有的通知
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${isError ? 'error' : 'success'}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${isError ? '#FF3B30' : '#34C759'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                font-weight: 500;
+                animation: fadeIn 0.3s, fadeOut 0.3s 2s forwards;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // 3秒后自动移除
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
         }
         
         // 按Enter键提交密码
@@ -519,6 +699,21 @@
                 document.getElementById('submitBtn').click();
             }
         });
+        
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; bottom: 0; }
+                to { opacity: 1; bottom: 30px; }
+            }
+            
+            @keyframes fadeOut {
+                from { opacity: 1; bottom: 30px; }
+                to { opacity: 0; bottom: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
-</html>
+</html> 
